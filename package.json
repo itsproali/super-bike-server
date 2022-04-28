@@ -1,0 +1,17 @@
+{
+  "name": "super_bike_server",
+  "version": "1.0.0",
+  "description": "Super Bike server side application ",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "super-bike",
+    "server-side",
+    "inventory-manangement",
+    "warehouse-application"
+  ],
+  "author": "Mohammad Ali (itsproali)",
+  "license": "ISC"
+}
