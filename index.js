@@ -3,7 +3,7 @@ const app = express();
 const cors = require("cors");
 require("dotenv").config();
 const port = process.env.PORT || 5000;
-const { MongoClient, ServerApiVersion } = require("mongodb");
+const { MongoClient, ServerApiVersion, ObjectId } = require("mongodb");
 
 app.use(cors());
 app.use(express.json());
@@ -24,6 +24,13 @@ async function run() {
       const query = {};
       const cursor = itemCollection.find(query).limit(6);
       const result = await cursor.toArray();
+      res.send(result);
+    });
+
+    // Load specific data by id
+    app.get("/item/:id", async (req, res) => {
+      const query = { _id: ObjectId(req.params.id) };
+      const result = await itemCollection.findOne(query);
       res.send(result);
     });
   } finally {
