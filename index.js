@@ -19,6 +19,14 @@ async function run() {
     await client.connect();
     const itemCollection = client.db("SuperBike").collection("items");
 
+    //   Load All Items
+    app.get("/items", async (req, res) => {
+      const query = {};
+      const cursor = itemCollection.find(query);
+      const result = await cursor.toArray();
+      res.send(result);
+    });
+
     //   Load 6 Items
     app.get("/items/6", async (req, res) => {
       const query = {};
@@ -32,6 +40,13 @@ async function run() {
       const query = { _id: ObjectId(req.params.id) };
       const result = await itemCollection.findOne(query);
       res.send(result);
+    });
+
+    // Update Quantity
+    app.put("/item/:id", async (req, res) => {
+      const query = req.body;
+      console.log(query);
+      res.send()
     });
   } finally {
     // client.close()
