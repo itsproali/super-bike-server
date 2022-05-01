@@ -42,11 +42,23 @@ async function run() {
       res.send(result);
     });
 
-    // Update Quantity
+    // Update Quantity & Sold
     app.put("/item/:id", async (req, res) => {
-      const query = req.body;
-      console.log(query);
-      res.send()
+      const quantity = req.body.quantity;
+      const sold = req.body.sold;
+      const data = { quantity: quantity - 1, sold: sold +1 };
+      console.log(data);
+      const query = { _id: ObjectId(req.params.id) };
+      const options = { upsert: true };
+      const updateDoc = {
+        $set: data,
+      };
+      const updateQuantity = await itemCollection.updateOne(
+        query,
+        updateDoc,
+        options
+      );
+      res.send(updateQuantity);
     });
   } finally {
     // client.close()
