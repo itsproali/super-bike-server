@@ -46,8 +46,25 @@ async function run() {
     app.put("/item/:id", async (req, res) => {
       const quantity = req.body.quantity;
       const sold = req.body.sold;
-      const data = { quantity: quantity - 1, sold: sold +1 };
-      console.log(data);
+      const data = { quantity: quantity - 1, sold: sold + 1 };
+      const query = { _id: ObjectId(req.params.id) };
+      const options = { upsert: true };
+      const updateDoc = {
+        $set: data,
+      };
+      const updateQuantity = await itemCollection.updateOne(
+        query,
+        updateDoc,
+        options
+      );
+      res.send(updateQuantity);
+    });
+
+    // Update Stock
+    app.put("/stockItem/:id", async (req, res) => {
+      const quantity = req.body.quantity;
+      const stock = req.body.stock;
+      const data = { quantity: quantity + stock };
       const query = { _id: ObjectId(req.params.id) };
       const options = { upsert: true };
       const updateDoc = {
