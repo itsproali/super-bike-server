@@ -93,6 +93,13 @@ async function run() {
       );
       res.send(updateQuantity);
     });
+
+    // Add a new Product
+    app.post("/add", async (req, res) => {
+      const item = req.body.item;
+      const result = await itemCollection.insertOne(item);
+      res.send(result)
+    })
   } finally {
     // client.close()
   }
