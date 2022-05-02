@@ -77,6 +77,22 @@ async function run() {
       );
       res.send(updateQuantity);
     });
+
+    // Update Item Details
+    app.put("/edit/:id", async (req, res) => {
+      const item = req.body.item;
+      const query = { _id: ObjectId(req.params.id) };
+      const options = { upsert: true };
+      const updateDoc = {
+        $set: item,
+      };
+      const updateQuantity = await itemCollection.updateOne(
+        query,
+        updateDoc,
+        options
+      );
+      res.send(updateQuantity);
+    });
   } finally {
     // client.close()
   }
