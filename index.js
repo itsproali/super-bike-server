@@ -98,8 +98,15 @@ async function run() {
     app.post("/add", async (req, res) => {
       const item = req.body.item;
       const result = await itemCollection.insertOne(item);
-      res.send(result)
-    })
+      res.send(result);
+    });
+
+    // Delete a Product
+    app.delete("/delete/:id", async (req, res) => {
+      const query = { _id: ObjectId(req.params.id) };
+      const result = await itemCollection.deleteOne(query);
+      res.send(result);
+    });
   } finally {
     // client.close()
   }
