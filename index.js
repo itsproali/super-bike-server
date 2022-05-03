@@ -19,6 +19,12 @@ async function run() {
     await client.connect();
     const itemCollection = client.db("SuperBike").collection("items");
 
+    // Count Product
+    app.get("/item-count", async (req, res) => {
+      const count = await productCollection.estimatedDocumentCount();
+      res.send({ count });
+    });
+
     //   Load All Items
     app.get("/items", async (req, res) => {
       const query = {};
@@ -106,6 +112,15 @@ async function run() {
       const query = { _id: ObjectId(req.params.id) };
       const result = await itemCollection.deleteOne(query);
       res.send(result);
+    });
+
+    // My Items
+    app.post("/my-items", async (req, res) => {
+      const email = req.body.email;
+      const query = { email: { $in: [email] } };
+      const cursor = itemCollection.find(query);
+      const myItems = await cursor.toArray();
+      res.send(myItems);
     });
   } finally {
     // client.close()
