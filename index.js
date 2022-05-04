@@ -21,7 +21,7 @@ async function run() {
 
     // Count Product
     app.get("/item-count", async (req, res) => {
-      const count = await productCollection.estimatedDocumentCount();
+      const count = await itemCollection.estimatedDocumentCount();
       res.send({ count });
     });
 
