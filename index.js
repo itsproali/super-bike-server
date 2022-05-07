@@ -18,6 +18,7 @@ async function run() {
   try {
     await client.connect();
     const itemCollection = client.db("SuperBike").collection("items");
+    const memberCollection = client.db("SuperBike").collection("members");
 
     // Count Product
     app.get("/item-count", async (req, res) => {
@@ -121,6 +122,14 @@ async function run() {
       const cursor = itemCollection.find(query);
       const myItems = await cursor.toArray();
       res.send(myItems);
+    });
+
+    // Load All Members
+    app.get("/members", async (req, res) => {
+      const query = {};
+      const cursor = memberCollection.find(query);
+      const members = await cursor.toArray();
+      res.send(members);
     });
   } finally {
     // client.close()
