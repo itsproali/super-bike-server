@@ -10,23 +10,25 @@ const jwt = require("jsonwebtoken");
 app.use(cors());
 app.use(express.json());
 
-const verifyJWT = (req, res, next) => {
-  const authHeader = req.headers.authorization;
-  if (!authHeader) {
-    return res.status(401).send({ message: "Unauthorized Access" });
-  }
-  const token = authHeader.split(" ")[1];
-  console.log(token);
-  jwt.verify(token, process.env.ACCESS_SECRET, function (err, decoded) {
-    if (err) {
-      return res.status(403).send({ message: "Forbidden Access" });
-    }
-    console.log("decoded", decoded);
-    req.decoded = decoded;
-  });
-  // console.log(authHeader);
-  next();
-};
+//********  Left JWT for Unwanted Error  ********/
+
+// const verifyJWT = (req, res, next) => {
+//   const authHeader = req.headers.authorization;
+//   if (!authHeader) {
+//     return res.status(401).send({ message: "Unauthorized Access" });
+//   }
+//   const token = authHeader.split(" ")[1];
+//   console.log(token);
+//   jwt.verify(token, process.env.ACCESS_SECRET, function (err, decoded) {
+//     if (err) {
+//       return res.status(403).send({ message: "Forbidden Access" });
+//     }
+//     console.log("decoded", decoded);
+//     req.decoded = decoded;
+//   });
+//   // console.log(authHeader);
+//   next();
+// };
 
 const uri = `mongodb+srv://itsproali:${process.env.DB_PASSWORD}@bikecluster.vxpkk.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`;
 const client = new MongoClient(uri, {
@@ -136,17 +138,17 @@ async function run() {
     });
 
     // My Items
-    app.get("/my-items", verifyJWT, async (req, res) => {
-      const decodedUid = req.decoded.uid;
+    app.get("/my-items", async (req, res) => {
       const uid = req.query.uid;
-      if (uid === decodedUid) {
-        const query = { uid: uid };
-        const cursor = itemCollection.find(query);
-        const myItems = await cursor.toArray();
-        res.send(myItems);
-      } else {
-        res.status(403).send({ message: "Forbidden Access" });
-      }
+      // const decodedUid = req.decfoded.uid;
+      // if (uid === decodedUid) {
+      const query = { uid: uid };
+      const cursor = itemCollection.find(query);
+      const myItems = await cursor.toArray();
+      res.send(myItems);
+      // } else {
+      //   res.status(403).send({ message: "Forbidden Access" });
+      // }
     });
 
     // Load All Members
