@@ -161,8 +161,9 @@ async function run() {
 
     // get Token
     app.post("/getToken", async (req, res) => {
-      const user = req.body;
-      const accessToken = jwt.sign(user, process.env.ACCESS_SECRET, {
+      const user = req.body.userId;
+      console.log(user);
+      const accessToken = jwt.sign({ user }, process.env.ACCESS_SECRET, {
         expiresIn: "1d",
       });
       res.send({ accessToken });
