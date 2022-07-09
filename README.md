@@ -4,31 +4,33 @@ Welcome to ocean of bike. This is the warehouse of super bike store. Here you ca
 
 ### [Super Bike Warehouse](https://super-bike-warehouse.web.app/)
 
-
 [https://super-bike-warehouse.web.app/](https://super-bike-warehouse.web.app/)
 
 <br/>
 
+### [Client-side Code](https://github.com/itsproali/super-bike-client) | [Server-side Code](https://github.com/itsproali/super-bike-server)
 
-## Website Features: 
+<br/>
 
-* LogIn (email and password, google, facebook, github)
-* Product details
-* Manage Product Warehouse
-* Add  a product to database
-* Edit product details & update on database
-* Remove a product from database
-* Deliver product
-* 404 Page
-* Restock product and many more
+## Website Features:
 
-## Tools and technologies: 
+- LogIn (email and password, google, facebook, github)
+- Product details
+- Manage Product Warehouse
+- Add a product to database
+- Edit product details & update on database
+- Remove a product from database
+- Deliver product
+- 404 Page
+- Restock product and many more
 
-* React js
-* React Router
-* Firebase Authentication
-* React Tailwind
-* React hot toast
-* Node js, express js
-* MongoDB
-* Heroku etc.
+## Tools and technologies:
+
+- React js
+- React Router
+- Firebase Authentication
+- React Tailwind
+- React hot toast
+- Node js, express js
+- MongoDB
+- Heroku etc.
