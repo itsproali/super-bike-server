@@ -140,7 +140,7 @@ async function run() {
     // My Items
     app.get("/my-items", async (req, res) => {
       const uid = req.query.uid;
-      // const decodedUid = req.decfoded.uid;
+      // const decodedUid = req.decoded.uid;
       // if (uid === decodedUid) {
       const query = { uid: uid };
       const cursor = itemCollection.find(query);
