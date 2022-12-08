@@ -56,13 +56,13 @@ async function run() {
       res.send(result);
     });
 
-    //   Load 6 Items
-    app.get("/items/6", async (req, res) => {
-      const query = {};
-      const cursor = itemCollection.find(query).limit(6);
-      const result = await cursor.toArray();
-      res.send(result);
-    });
+    // //   Load 6 Items
+    // app.get("/items/6", async (req, res) => {
+    //   const query = {};
+    //   const cursor = itemCollection.find(query).limit(6);
+    //   const result = await cursor.toArray();
+    //   res.send(result);
+    // });
 
     // Load specific data by id
     app.get("/item/:id", async (req, res) => {
@@ -179,6 +179,14 @@ run().catch(console.dir);
 // Default Route
 app.get("/", (req, res) => {
   res.send("Yay Super Bike server is running smoothly !!!");
+});
+
+//   Load 6 Items
+app.get("/items/6", async (req, res) => {
+  const query = {};
+  const cursor = itemCollection.find(query).limit(6);
+  const result = await cursor.toArray();
+  res.send(result);
 });
 
 app.listen(port, () => {
