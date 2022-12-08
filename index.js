@@ -173,8 +173,10 @@ async function run() {
   }
 }
 
+// Call the run function
 run().catch(console.dir);
 
+// Default Route
 app.get("/", (req, res) => {
   res.send("Yay Super Bike server is running smoothly !!!");
 });
