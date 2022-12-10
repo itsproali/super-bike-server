@@ -2,15 +2,13 @@ const express = require("express");
 const cors = require("cors");
 require("dotenv").config();
 const port = process.env.PORT || 5000;
-// const { MongoClient, ServerApiVersion, ObjectId } = require("mongodb");
+const { MongoClient, ServerApiVersion, ObjectId } = require("mongodb");
 const jwt = require("jsonwebtoken");
-const router = require("./routes/routes");
 const app = express();
 
 // middleware
 app.use(cors());
 app.use(express.json());
-app.use("/api", router);
 
 //********  Left JWT for Unwanted Error  ********/
 
@@ -32,24 +30,29 @@ app.use("/api", router);
 //   next();
 // };
 
-// const uri = `mongodb+srv://itsproali:${process.env.DB_PASSWORD}@bikecluster.vxpkk.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`;
-// const client = new MongoClient(uri, {
-//   useNewUrlParser: true,
-//   useUnifiedTopology: true,
-//   serverApi: ServerApiVersion.v1,
-// });
+const uri = `mongodb+srv://itsproali:${process.env.DB_PASSWORD}@bikecluster.vxpkk.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`;
+const client = new MongoClient(uri, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+  serverApi: ServerApiVersion.v1,
+});
 
 const run = async () => {
   try {
-    // await client.connect();
-    // const itemCollection = client.db("SuperBike").collection("items");
-    // const memberCollection = client.db("SuperBike").collection("members");
+    await client.connect();
+    const itemCollection = client.db("SuperBike").collection("items");
+    const memberCollection = client.db("SuperBike").collection("members");
 
-    // // Count Product
-    // app.get("/item-count", async (req, res) => {
-    //   const count = await itemCollection.estimatedDocumentCount();
-    //   res.send({ count });
-    // });
+    // Simple route
+    app.get("/simple", async (req, res) => {
+      res.send("Simple Route Working");
+    });
+
+    // Count Product
+    app.get("/item-count", async (req, res) => {
+      const count = await itemCollection.estimatedDocumentCount();
+      res.send({ count });
+    });
 
     //   Load All Items
     app.get("/items", async (req, res) => {
