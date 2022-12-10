@@ -1,10 +1,10 @@
 const express = require("express");
-const app = express();
 const cors = require("cors");
 require("dotenv").config();
 const port = process.env.PORT || 5000;
 const { MongoClient, ServerApiVersion, ObjectId } = require("mongodb");
 const jwt = require("jsonwebtoken");
+const app = express();
 
 // middleware
 app.use(cors());
@@ -36,7 +36,8 @@ const client = new MongoClient(uri, {
   useUnifiedTopology: true,
   serverApi: ServerApiVersion.v1,
 });
-async function run() {
+
+const run = async() => {
   try {
     await client.connect();
     const itemCollection = client.db("SuperBike").collection("items");
@@ -56,13 +57,13 @@ async function run() {
       res.send(result);
     });
 
-    // //   Load 6 Items
-    // app.get("/items/6", async (req, res) => {
-    //   const query = {};
-    //   const cursor = itemCollection.find(query).limit(6);
-    //   const result = await cursor.toArray();
-    //   res.send(result);
-    // });
+    //   Load 6 Items
+    app.get("/items/6", async (req, res) => {
+      const query = {};
+      const cursor = itemCollection.find(query).limit(6);
+      const result = await cursor.toArray();
+      res.send(result);
+    });
 
     // Load specific data by id
     app.get("/item/:id", async (req, res) => {
@@ -162,7 +163,6 @@ async function run() {
     // get Token
     app.post("/getToken", async (req, res) => {
       const user = req.body.userId;
-      console.log(user);
       const accessToken = jwt.sign({ user }, process.env.ACCESS_SECRET, {
         expiresIn: "1d",
       });
@@ -177,16 +177,8 @@ async function run() {
 run().catch(console.dir);
 
 // Default Route
-app.get("/", (req, res) => {
+app.get("/", async(req, res) => {
   res.send("Yay Super Bike server is running smoothly !!!");
-});
-
-//   Load 6 Items
-app.get("/items/6", async (req, res) => {
-  const query = {};
-  const cursor = itemCollection.find(query).limit(6);
-  const result = await cursor.toArray();
-  res.send(result);
 });
 
 app.listen(port, () => {
