@@ -53,11 +53,6 @@ app.get("/", async (req, res) => {
   res.send("Yay Super Bike server is running smoothly !!!");
 });
 
-// Simple route
-app.get("/simple", async (req, res) => {
-  res.send("Simple Route Working");
-});
-
 // Count Product
 app.get("/item-count", async (req, res) => {
   const count = await itemCollection.estimatedDocumentCount();
@@ -156,15 +151,10 @@ app.delete("/delete/:id", async (req, res) => {
 // My Items
 app.get("/my-items", async (req, res) => {
   const uid = req.query.uid;
-  // const decodedUid = req.decoded.uid;
-  // if (uid === decodedUid) {
-  const query = { uid: uid };
+  const query = { uid };
   const cursor = itemCollection.find(query);
   const myItems = await cursor.toArray();
   res.send(myItems);
-  // } else {
-  //   res.status(403).send({ message: "Forbidden Access" });
-  // }
 });
 
 // Load All Members
@@ -179,7 +169,7 @@ app.get("/members", async (req, res) => {
 app.post("/getToken", async (req, res) => {
   const user = req.body.userId;
   const accessToken = jwt.sign({ user }, process.env.ACCESS_SECRET, {
-    expiresIn: "1d",
+    expiresIn: "30d",
   });
   res.send({ accessToken });
 });
