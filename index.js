@@ -178,9 +178,6 @@ const run = async () => {
   }
 };
 
-// Call the run function
-run().catch(console.dir);
-
 // // Default Route
 app.get("/", async (req, res) => {
   res.send("Yay Super Bike server is running smoothly !!!");
@@ -189,6 +186,9 @@ app.get("/", async (req, res) => {
 app.get("/checker", async (req, res) => {
   res.send("Checker is working properly");
 });
+
+// Call the run function
+run().catch(console.dir);
 
 app.listen(port, () => {
   console.log("My super server is running on: ", port);
