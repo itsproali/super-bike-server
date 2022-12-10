@@ -186,6 +186,10 @@ app.get("/", async (req, res) => {
   res.send("Yay Super Bike server is running smoothly !!!");
 });
 
+app.get("/checker", async (req, res) => {
+  res.send("Checker is working properly");
+});
+
 app.listen(port, () => {
   console.log("My super server is running on: ", port);
 });
