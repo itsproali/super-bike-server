@@ -1,7 +1,7 @@
 {
   "name": "super_bike_server",
   "version": "1.0.0",
-  "description": "Super Bike server side application ",
+  "description": "Super Bike server side application",
   "main": "index.js",
   "scripts": {
     "start": "node index.js",

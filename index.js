@@ -43,6 +43,11 @@ const run = async() => {
     const itemCollection = client.db("SuperBike").collection("items");
     const memberCollection = client.db("SuperBike").collection("members");
 
+    // Default Route
+    app.get("/", async(req, res) => {
+      res.send("Yay Super Bike server is running smoothly !!!");
+    });
+
     // Count Product
     app.get("/item-count", async (req, res) => {
       const count = await itemCollection.estimatedDocumentCount();
@@ -176,10 +181,10 @@ const run = async() => {
 // Call the run function
 run().catch(console.dir);
 
-// Default Route
-app.get("/", async(req, res) => {
-  res.send("Yay Super Bike server is running smoothly !!!");
-});
+// // Default Route
+// app.get("/", async(req, res) => {
+//   res.send("Yay Super Bike server is running smoothly !!!");
+// });
 
 app.listen(port, () => {
   console.log("My super server is running on: ", port);
