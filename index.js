@@ -1,7 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 require("dotenv").config();
-const port = process.env.PORT || 5000;
+const PORT = process.env.PORT || 5000;
 const { MongoClient, ServerApiVersion, ObjectId } = require("mongodb");
 const jwt = require("jsonwebtoken");
 const app = express();
@@ -30,7 +30,7 @@ app.use(express.json());
 //   next();
 // };
 
-const uri = `mongodb+srv://itsproali:${process.env.DB_PASSWORD}@bikecluster.vxpkk.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`;
+const uri = process.env.DATABASE;
 const client = new MongoClient(uri, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
@@ -174,6 +174,6 @@ app.post("/getToken", async (req, res) => {
   res.send({ accessToken });
 });
 
-app.listen(port, () => {
-  console.log("My super server is running on: ", port);
+app.listen(PORT, () => {
+  console.log("My super server is running on: ", PORT);
 });
